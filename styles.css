@@ -557,4 +557,22 @@ body {
     .modal-buttons .btn {
         width: 100%;
     }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .button-group .btn {
+        width: 100%;
+    }
+    
+    .section-header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .section-header-container .btn-clear-section {
+        width: 100%;
+    }
 }
