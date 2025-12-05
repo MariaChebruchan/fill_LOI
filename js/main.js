@@ -77,7 +77,7 @@ if (includeHeaderCheckbox) {
 const togglePreviewCheckbox = document.getElementById('togglePreview');
 if (togglePreviewCheckbox) {
     togglePreviewCheckbox.addEventListener('change', () => {
-        const previewSection = document.getElementById('previewSection');
+        const previewSection = document.querySelector('.preview-section');
         if (previewSection) {
             if (togglePreviewCheckbox.checked) {
                 previewSection.style.display = 'block';
