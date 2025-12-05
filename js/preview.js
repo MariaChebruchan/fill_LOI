@@ -9,8 +9,8 @@ function updatePreview() {
     const ownersAddress = getFieldValue('ownersAdress') || '[Address of Owners]';
     
     // Get load port and discharge port
-    const loadPort = getFieldValue('loadPort') || '[load port(s) stated in the BL]';
-    const dischargePort = getFieldValue('dischargePort') || '[discharge port(s) stated in the BL]';
+    const loadPort = getFieldValue('loadPort') || '[load port(s)]';
+    const dischargePort = getFieldValue('dischargePort') || '[discharge port(s)]';
     
     const cargo = getFieldValue('cargo') || '[description of cargo]';
     
