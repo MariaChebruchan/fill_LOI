@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter of Indemnity Generator by Ships List Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Letter of Indemnity Generator by Ships List Solutions</h1>
+            <p>Fill in the form below to generate your LOI draft for release of cargo without presentation of BLs</p>
+        </div>
+
+        <div class="content">
+            <div class="form-section">
+                <section>
+                    <div class="section-header-container">
+                        <h2 class="section-header">Header Details</h2>
+                        <button class="btn-clear-section" onclick="clearSection('headerDetails')">Clear the section</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" name="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ownersName">Name of Owners</label>
+                        <input type="text" id="ownersName" name="ownersName" placeholder="Enter owners name">
+                    </div>
+                        
+                    <div class="form-group">
+                        <label for="ownersAdress">Address of the Owners</label>
+                        <textarea id="ownersAdress" name="ownersAdress" placeholder="Enter ownersAdress"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vesselName">Name of VESSEL</label>
+                        <input type="text" id="vesselName" name="vesselName" placeholder="Enter VESSEL name">
+                    </div>
+                </section>
+
+                <section>
+                    <div class="section-header-container">
+                        <h2 class="section-header">BL Details</h2>
+                        <button class="btn-clear-section" onclick="clearSection('blDetails')">Clear the section</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipper">Name of Shipper</label>
+                        <input type="text" id="shipper" name="shipper" placeholder="Enter shipper name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="consignee">Name of Consignee</label>
+                        <input type="text" id="consignee" name="consignee" placeholder="Enter consignee name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loadPort">Load Port as per BL</label>
+                        <input type="text" id="loadPort" name="loadPort" placeholder="Enter load port(s) as per BL">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dischargePort">Discharge Port as per BL</label>
+                        <input type="text" id="dischargePort" name="dischargePort" placeholder="Enter discharge port(s) as per BL">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cargo">Cargo Description</label>
+                        <textarea id="cargo" name="cargo" placeholder="Enter cargo description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="billOfLading">Bill of Lading (Numbers, Date, Place)</label>
+                        <textarea id="billOfLading" name="billOfLading" placeholder="Enter bill of lading details"></textarea>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="section-header-container">
+                        <h2 class="section-header">Delivery Details</h2>
+                        <button class="btn-clear-section" onclick="clearSection('deliveryDetails')">Clear the section</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestingParty">Name of Party Requesting Delivery</label>
+                        <input type="text" id="requestingParty" name="requestingParty" placeholder="Enter requesting party name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deliveryParty">Name of Party to Whom Delivery is to be Made</label>
+                        <input type="text" id="deliveryParty" name="deliveryParty" placeholder="Enter delivery party name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deliveryPlace">Place Where Delivery is to be Made</label>
+                        <input type="text" id="deliveryPlace" name="deliveryPlace" placeholder="Enter delivery place">
+                    </div>
+                </section>
+
+                <section>
+                    <div class="section-header-container">
+                        <h2 class="section-header">Requestor Details</h2>
+                        <button class="btn-clear-section" onclick="clearSection('requestorDetails')">Clear the section</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyRequestor">Company Requestor</label>
+                        <input type="text" id="companyRequestor" name="companyRequestor" placeholder="Enter company requestor name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="companyRequestorAddress">Address of Company Requestor</label>
+                        <textarea id="companyRequestorAddress" name="companyRequestorAddress" placeholder="Enter address of company requestor"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="representativeName">Name and Surname of Company Representative Signing</label>
+                        <input type="text" id="representativeName" name="representativeName" placeholder="Enter name and surname">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="representativePosition">Position of Representative of Company</label>
+                        <input type="text" id="representativePosition" name="representativePosition" placeholder="Enter position">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeHeader" name="includeHeader">
+                            <span>Add letterhead of requestor</span>
+                        </label>
+                    </div>
+                </section>
+
+                <div class="form-group">
+                    <button type="button" class="btn-update" id="btnUpdateSubCharterers" onclick="updateForSubCharterers()">Update for sub-Charterers</button>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn-update" id="btnUpdateHeadOwners" onclick="updateForHeadOwners()">Update for Head Owners</button>
+                </div>
+            </div>
+
+            <div class="preview-toggle-container">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="togglePreview" checked>
+                    <span>Show Preview</span>
+                </label>
+            </div>
+            <div class="preview-section" id="previewSection">
+                <h3>Preview</h3>
+                <div class="preview-content" id="preview">
+                    <!-- Preview will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-doc" onclick="downloadDOC()">Download DOC</button>
+            <button class="btn btn-copy" onclick="copyText()">Copy Text</button>
+            <button class="btn btn-pdf" id="btnDownloadPDF" onclick="downloadPDF()">Download PDF</button>
+        </div>
+        
+        <div class="footer">
+            <p>Developed by Dmytro Chebruchan</p>
+            <p><a href="mailto:chebruchan2707@gmail.com">chebruchan2707@gmail.com</a></p>
+        </div>
+    </div>
+
+    <!-- Validation Modal -->
+    <div id="validationModal" class="modal">
+        <div class="modal-content">
+            <h3>⚠️ Missing Information</h3>
+            <p>The following fields are not filled:</p>
+            <ul id="missingFieldsList"></ul>
+            <div class="modal-buttons">
+                <button class="btn btn-cancel" onclick="cancelAction()">Cancel</button>
+                <button class="btn btn-continue" onclick="proceedWithAction()">Continue Anyway</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/preview.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
