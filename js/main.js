@@ -23,7 +23,7 @@ if (billOfLadingDateField) {
 // Map section IDs to their input field IDs
 const sectionFields = {
     'headerDetails': ['date', 'ownersName', 'ownersAdress', 'vesselName'],
-    'blDetails': ['shipper', 'consignee', 'loadPort', 'dischargePort', 'cargo', 'billOfLadingNumbers', 'billOfLadingDate', 'billOfLadingPlace'],
+    'blDetails': ['shipper', 'consignee', 'loadPort', 'dischargePort', 'cargoQuantity', 'cargoName', 'billOfLadingNumbers', 'billOfLadingDate', 'billOfLadingPlace'],
     'deliveryDetails': ['requestingParty', 'deliveryParty', 'deliveryPlace'],
     'requestorDetails': ['companyRequestor', 'companyRequestorAddress', 'representativeName', 'representativePosition', 'includeHeader']
 };
@@ -150,6 +150,13 @@ function updatePDFButtonState() {
     // Check if all input fields (excluding checkboxes) are filled
     const emptyFields = checkEmptyInputFields();
     btnPDF.disabled = emptyFields.length > 0;
+    
+    // Add tooltip when disabled
+    if (btnPDF.disabled) {
+        btnPDF.title = 'Please fill all input fields to be able to download pdf document';
+    } else {
+        btnPDF.title = '';
+    }
 }
 
 // Update letterhead checkbox state

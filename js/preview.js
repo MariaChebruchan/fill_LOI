@@ -12,7 +12,8 @@ function updatePreview() {
     const loadPort = getFieldValue('loadPort') || '[load port(s)]';
     const dischargePort = getFieldValue('dischargePort') || '[discharge port(s)]';
     
-    const cargo = getFieldValue('cargo') || '[description of cargo]';
+    const cargoQuantity = getFieldValue('cargoQuantity') || '[quantity]';
+    const cargoName = getFieldValue('cargoName') || '[cargo name]';
     
     // Get bill of lading fields
     const billOfLadingNumbers = getFieldValue('billOfLadingNumbers') || '[BL identification numbers]';
@@ -60,12 +61,9 @@ function updatePreview() {
         
         <p>Dear Sirs</p>
         
-        <p>Ship: ${highlightPlaceholder(vesselName)}</p>
-        <p>Voyage: from ${highlightPlaceholder(loadPort)} to ${highlightPlaceholder(dischargePort)}</p>
-        <p>Cargo: ${highlightPlaceholder(cargo)}</p>
-        <p>Bill of lading: #${highlightPlaceholder(billOfLadingNumbers)}, issued on ${highlightPlaceholder(billOfLadingDate)} at ${highlightPlaceholder(billOfLadingPlace)}</p>
+        <p>Ship: ${highlightPlaceholder(vesselName)}<br>Voyage: from ${highlightPlaceholder(loadPort)} to ${highlightPlaceholder(dischargePort)}<br>Cargo: ${highlightPlaceholder(`${cargoQuantity} of ${cargoName}`)}<br>Bill of lading: #${highlightPlaceholder(billOfLadingNumbers)}, issued on ${highlightPlaceholder(billOfLadingDate)} at ${highlightPlaceholder(billOfLadingPlace)}</p>
         
-        <p>The above cargo was shipped on the above ship by ${highlightPlaceholder(shipper)} and consigned to ${highlightPlaceholder(consignee)} for delivery at the port of ${highlightPlaceholder(dischargePortDisplay)} but the bill of lading has not arrived and we, ${highlightPlaceholder(requestingParty)}, hereby request you to deliver the said cargo to ${highlightPlaceholder(deliveryParty)} or to such party as you believe to be or to represent ${highlightPlaceholder(deliveryParty)} or to be acting on behalf of ${highlightPlaceholder(deliveryParty)} at ${highlightPlaceholder(deliveryPlace)} without production of the original bill of lading.</p>
+        <p>The above cargo was shipped on the above ship by ${highlightPlaceholder(shipper)} and consigned to ${highlightPlaceholder(consignee)} for delivery at the port of ${highlightPlaceholder(dischargePortDisplay)} but the bill of lading has not arrived and we, ${highlightPlaceholder(companyRequestor)}, ${highlightPlaceholder(companyRequestorAddress)}, hereby request you to deliver the said cargo to ${highlightPlaceholder(deliveryParty)} or to such party as you believe to be or to represent ${highlightPlaceholder(deliveryParty)} or to be acting on behalf of ${highlightPlaceholder(deliveryParty)} at ${highlightPlaceholder(deliveryPlace)} without production of the original bill of lading.</p>
         
         <p>In consideration of your complying with our above request, we hereby agree as follows :-</p>
         

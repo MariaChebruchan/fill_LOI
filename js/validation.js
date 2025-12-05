@@ -7,7 +7,7 @@ let missingFields = [];
 function checkEmptyFields() {
     const requiredFields = [
         'date', 'ownersName', 'ownersAdress', 'vesselName', 'shipper',
-        'consignee', 'loadPort', 'dischargePort', 'cargo', 'billOfLadingNumbers', 'billOfLadingDate', 'billOfLadingPlace',
+        'consignee', 'loadPort', 'dischargePort', 'cargoQuantity', 'cargoName', 'billOfLadingNumbers', 'billOfLadingDate', 'billOfLadingPlace',
         'requestingParty', 'deliveryParty', 'deliveryPlace', 'companyRequestor',
         'companyRequestorAddress', 'representativeName', 'representativePosition'
     ];

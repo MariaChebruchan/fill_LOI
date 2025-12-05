@@ -47,14 +47,15 @@
                         <h2 class="section-header">BL Details</h2>
                         <button class="btn-clear-section" onclick="clearSection('blDetails')">Clear the section</button>
                     </div>
+
                     <div class="form-group">
-                        <label for="shipper">Name of Shipper</label>
-                        <input type="text" id="shipper" name="shipper" placeholder="Enter shipper">
+                        <label for="billOfLadingNumbers">Bill of Lading Numbers</label>
+                        <input type="text" id="billOfLadingNumbers" name="billOfLadingNumbers" placeholder="Enter bill of lading identification numbers">
                     </div>
 
                     <div class="form-group">
-                        <label for="consignee">Name of Consignee</label>
-                        <input type="text" id="consignee" name="consignee" placeholder="Enter consignee">
+                        <label for="shipper">Name of Shipper</label>
+                        <input type="text" id="shipper" name="shipper" placeholder="Enter shipper">
                     </div>
 
                     <div class="form-group">
@@ -68,13 +69,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cargo">Cargo Description</label>
-                        <textarea id="cargo" name="cargo" placeholder="Enter cargo description"></textarea>
+                        <label for="cargoQuantity">Cargo Quantity</label>
+                        <input type="text" id="cargoQuantity" name="cargoQuantity" placeholder="Enter cargo quantity">
                     </div>
 
                     <div class="form-group">
-                        <label for="billOfLadingNumbers">Bill of Lading Numbers</label>
-                        <input type="text" id="billOfLadingNumbers" name="billOfLadingNumbers" placeholder="Enter bill of lading identification numbers">
+                        <label for="cargoName">Cargo Name</label>
+                        <input type="text" id="cargoName" name="cargoName" placeholder="Enter cargo name">
                     </div>
 
                     <div class="form-group">
@@ -92,10 +93,6 @@
                     <div class="section-header-container">
                         <h2 class="section-header">Delivery Details</h2>
                         <button class="btn-clear-section" onclick="clearSection('deliveryDetails')">Clear the section</button>
-                    </div>
-                    <div class="form-group">
-                        <label for="requestingParty">Name of Party Requesting Delivery</label>
-                        <input type="text" id="requestingParty" name="requestingParty" placeholder="Enter requesting party name">
                     </div>
 
                     <div class="form-group">
@@ -155,10 +152,10 @@
                 <div class="section-header-container">
                     <h3 class="section-header">Preview</h3>
 
-                    <label class="checkbox-label">
+                    <!--<label class="checkbox-label">
                         <input type="checkbox" id="togglePreview" checked>
                         <span>Show Preview</span>
-                    </label>
+                    </label>-->
                 </div>
                 <div class="preview-section">
                     <div class="preview-content" id="preview">
