@@ -16,7 +16,7 @@ function downloadPDF() {
 function checkEmptyInputFields() {
     const requiredFields = [
         'date', 'ownersName', 'ownersAdress', 'vesselName', 'shipper',
-        'consignee', 'loadPort', 'dischargePort', 'cargo', 'billOfLading',
+        'consignee', 'loadPort', 'dischargePort', 'cargo', 'billOfLadingNumbers', 'billOfLadingDate', 'billOfLadingPlace',
         'requestingParty', 'deliveryParty', 'deliveryPlace', 'companyRequestor',
         'companyRequestorAddress', 'representativeName', 'representativePosition'
     ];

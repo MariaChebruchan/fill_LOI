@@ -4,37 +4,31 @@ function updatePreview() {
     const preview = document.getElementById('preview');
     
     const date = formatDate(getFieldValue('date'));
-    const ownersName = getFieldValue('ownersName') || '[name of Owners]';
-    const vesselName = getFieldValue('vesselName') || '[name of vessel]';
-    const ownersAddress = getFieldValue('ownersAdress') || '[Owners Address]';
+    const ownersName = getFieldValue('ownersName') || '[Owners company name]';
+    const vesselName = getFieldValue('vesselName') || '[Ship]';
+    const ownersAddress = getFieldValue('ownersAdress') || '[Address of Owners]';
     
     // Get load port and discharge port
-    const loadPort = getFieldValue('loadPort');
-    const dischargePort = getFieldValue('dischargePort');
-    
-    // Generate voyage automatically
-    let voyage;
-    if (loadPort && dischargePort) {
-        voyage = `from ${loadPort} to ${dischargePort}`;
-    } else if (loadPort) {
-        voyage = `from ${loadPort} to [discharge port(s) as per BL]`;
-    } else if (dischargePort) {
-        voyage = `from [load port(s) as per BL] to ${dischargePort}`;
-    } else {
-        voyage = '[load and discharge ports as stated in bill of lading]';
-    }
+    const loadPort = getFieldValue('loadPort') || '[load port(s) stated in the BL]';
+    const dischargePort = getFieldValue('dischargePort') || '[discharge port(s) stated in the BL]';
     
     const cargo = getFieldValue('cargo') || '[description of cargo]';
-    const billOfLading = getFieldValue('billOfLading') || '[identification numbers, date and place of issue]';
-    const shipper = getFieldValue('shipper') || '[name of shipper]';
-    const consignee = getFieldValue('consignee') || '[name of consignee or party to whose order the bill of lading is made out, as appropriate]';
-    const dischargePortDisplay = dischargePort || '[name of discharge port stated in the bill of lading]';
-    const requestingParty = getFieldValue('requestingParty') || '[name of party requesting delivery]';
-    const deliveryParty = getFieldValue('deliveryParty') || '[name of party to whom delivery is to be made]';
+    
+    // Get bill of lading fields
+    const billOfLadingNumbers = getFieldValue('billOfLadingNumbers') || '[BL identification numbers]';
+    const billOfLadingDateValue = getFieldValue('billOfLadingDate');
+    const billOfLadingDate = billOfLadingDateValue ? formatDate(billOfLadingDateValue) : '[date of issue]';
+    const billOfLadingPlace = getFieldValue('billOfLadingPlace') || '[place of issue]';
+    
+    const shipper = getFieldValue('shipper') || '[Shipper]';
+    const consignee = getFieldValue('consignee') || '[consignee or party to whose order the bill of lading is made out, as appropriate]';
+    const dischargePortDisplay = dischargePort || '[discharge port stated in the bill of lading]';
+    const requestingParty = getFieldValue('requestingParty') || '[company requesting delivery]';
+    const deliveryParty = getFieldValue('deliveryParty') || '[party to whom delivery is to be made]';
     const deliveryPlace = getFieldValue('deliveryPlace') || '[place where delivery is to be made]';
     const companyRequestor = getFieldValue('companyRequestor') || '[company requestor]';
     const companyRequestorAddress = getFieldValue('companyRequestorAddress') || '[address of company requestor]';
-    const representativeName = getFieldValue('representativeName') || '[name and surname of company person signing]';
+    const representativeName = getFieldValue('representativeName') || '[name and surname person signing]';
     const representativePosition = getFieldValue('representativePosition') || '[position of person signing]';
 
     const displayDate = date || '[Date]';
@@ -62,18 +56,16 @@ function updatePreview() {
         
         <p>${highlightPlaceholder(displayDate)}</p>
         
-        <p>To : ${highlightPlaceholder(ownersName)}</p>
-        <p>The Owners of the ${highlightPlaceholder(vesselName)}</p>
-        <p>${highlightPlaceholder(ownersAddress)}</p>
+        <p>To : ${highlightPlaceholder(ownersName)}<br>The Owners of the ${highlightPlaceholder(vesselName)}<br>${highlightPlaceholder(ownersAddress)}</p>
         
         <p>Dear Sirs</p>
         
         <p>Ship: ${highlightPlaceholder(vesselName)}</p>
-        <p>Voyage: ${highlightPlaceholder(voyage)}</p>
+        <p>Voyage: from ${highlightPlaceholder(loadPort)} to ${highlightPlaceholder(dischargePort)}</p>
         <p>Cargo: ${highlightPlaceholder(cargo)}</p>
-        <p>Bill of lading: ${highlightPlaceholder(billOfLading)}</p>
+        <p>Bill of lading: #${highlightPlaceholder(billOfLadingNumbers)}, issued on ${highlightPlaceholder(billOfLadingDate)} at ${highlightPlaceholder(billOfLadingPlace)}</p>
         
-        <p>The above cargo was shipped on the above ship by ${highlightPlaceholder(shipper)} and consigned to ${highlightPlaceholder(consignee)} for delivery at the port of ${highlightPlaceholder(dischargePortDisplay)} but the bill of lading has not arrived and we, ${highlightPlaceholder(requestingParty)}, hereby request you to deliver the said cargo to X ${highlightPlaceholder(deliveryParty)} or to such party as you believe to be or to represent X or to be acting on behalf of X at ${highlightPlaceholder(deliveryPlace)} without production of the original bill of lading.</p>
+        <p>The above cargo was shipped on the above ship by ${highlightPlaceholder(shipper)} and consigned to ${highlightPlaceholder(consignee)} for delivery at the port of ${highlightPlaceholder(dischargePortDisplay)} but the bill of lading has not arrived and we, ${highlightPlaceholder(requestingParty)}, hereby request you to deliver the said cargo to ${highlightPlaceholder(deliveryParty)} or to such party as you believe to be or to represent ${highlightPlaceholder(deliveryParty)} or to be acting on behalf of ${highlightPlaceholder(deliveryParty)} at ${highlightPlaceholder(deliveryPlace)} without production of the original bill of lading.</p>
         
         <p>In consideration of your complying with our above request, we hereby agree as follows :-</p>
         

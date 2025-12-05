@@ -6,6 +6,16 @@ if (dateField) {
     dateField.valueAsDate = new Date();
     // Add change listener for date field
     dateField.addEventListener('change', () => {
+        updatePreview();
+        updatePDFButtonState();
+    });
+}
+
+// Add change listener for bill of lading date field
+const billOfLadingDateField = document.getElementById('billOfLadingDate');
+if (billOfLadingDateField) {
+    billOfLadingDateField.addEventListener('change', () => {
+        updatePreview();
         updatePDFButtonState();
     });
 }
@@ -13,7 +23,7 @@ if (dateField) {
 // Map section IDs to their input field IDs
 const sectionFields = {
     'headerDetails': ['date', 'ownersName', 'ownersAdress', 'vesselName'],
-    'blDetails': ['shipper', 'consignee', 'loadPort', 'dischargePort', 'cargo', 'billOfLading'],
+    'blDetails': ['shipper', 'consignee', 'loadPort', 'dischargePort', 'cargo', 'billOfLadingNumbers', 'billOfLadingDate', 'billOfLadingPlace'],
     'deliveryDetails': ['requestingParty', 'deliveryParty', 'deliveryPlace'],
     'requestorDetails': ['companyRequestor', 'companyRequestorAddress', 'representativeName', 'representativePosition', 'includeHeader']
 };
