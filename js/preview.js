@@ -5,7 +5,8 @@ function updatePreview() {
     
     const date = formatDate(getFieldValue('date'));
     const ownersName = getFieldValue('ownersName') || '[Owners company name]';
-    const vesselName = getFieldValue('vesselName') || '[Ship]';
+    const vesselNameRaw = getFieldValue('vesselName') || '[Ship]';
+    const vesselName = vesselNameRaw.startsWith('[') ? vesselNameRaw : vesselNameRaw.toUpperCase();
     const ownersAddress = getFieldValue('ownersAdress') || '[Address of Owners]';
     
     // Get load port and discharge port

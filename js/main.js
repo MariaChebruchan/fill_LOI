@@ -24,7 +24,7 @@ if (billOfLadingDateField) {
 const sectionFields = {
     'headerDetails': ['date', 'ownersName', 'ownersAdress', 'vesselName'],
     'blDetails': ['shipper', 'consignee', 'loadPort', 'dischargePort', 'cargoQuantity', 'cargoName', 'billOfLadingNumbers', 'billOfLadingDate', 'billOfLadingPlace'],
-    'deliveryDetails': ['requestingParty', 'deliveryParty', 'deliveryPartyAddress'],
+    'deliveryDetails': ['deliveryParty', 'deliveryPartyAddress'],
     'requestorDetails': ['companyRequestor', 'companyRequestorAddress', 'representativeName', 'representativePosition', 'includeHeader']
 };
 

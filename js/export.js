@@ -17,7 +17,7 @@ function checkEmptyInputFields() {
     const requiredFields = [
         'date', 'ownersName', 'ownersAdress', 'vesselName', 'shipper',
         'consignee', 'loadPort', 'dischargePort', 'cargoQuantity', 'cargoName', 'billOfLadingNumbers', 'billOfLadingDate', 'billOfLadingPlace',
-        'requestingParty', 'deliveryParty', 'deliveryPartyAddress', 'companyRequestor',
+        'deliveryParty', 'deliveryPartyAddress', 'companyRequestor',
         'companyRequestorAddress', 'representativeName', 'representativePosition'
     ];
     
@@ -44,6 +44,21 @@ function checkEmptyInputFields() {
 function executeDownloadPDF() {
     const element = document.getElementById('preview');
     
+    if (!element) {
+        console.error('Preview element not found');
+        alert('Error: Preview element not found. Please refresh the page and try again.');
+        return;
+    }
+    
+    // Ensure preview is visible and updated
+    const previewSection = document.querySelector('.preview-section');
+    if (previewSection) {
+        previewSection.style.display = 'block';
+    }
+    
+    // Ensure preview content is updated
+    updatePreview();
+    
     // Get vessel name and company requestor for filename
     const vesselName = getFieldValue('vesselName') || 'vessel-NAME';
     const companyRequestor = getFieldValue('companyRequestor') || 'company';
@@ -59,6 +74,18 @@ function executeDownloadPDF() {
     const companyRequestorName = getFieldValue('companyRequestor') || '';
     const companyRequestorAddress = getFieldValue('companyRequestorAddress') || '';
     
+    // Store original styles
+    const originalMaxHeight = element.style.maxHeight;
+    const originalOverflow = element.style.overflow;
+    const originalDisplay = element.style.display;
+    const originalVisibility = element.style.visibility;
+    
+    // Ensure element is visible for PDF generation
+    element.style.maxHeight = 'none';
+    element.style.overflow = 'visible';
+    element.style.display = 'block';
+    element.style.visibility = 'visible';
+    
     // Create wrapper element for PDF generation
     let elementToConvert = element;
     let wrapperCreated = false;
@@ -68,10 +95,13 @@ function executeDownloadPDF() {
         const wrapper = document.createElement('div');
         wrapper.style.position = 'absolute';
         wrapper.style.left = '-9999px';
+        wrapper.style.top = '0';
         wrapper.style.width = '210mm';
-        wrapper.style.padding = '0';
+        wrapper.style.padding = '15mm';
         wrapper.style.fontFamily = "'Times New Roman', serif";
         wrapper.style.backgroundColor = 'white';
+        wrapper.style.visibility = 'visible';
+        wrapper.style.display = 'block';
         
         // Create header div
         const headerDiv = document.createElement('div');
@@ -99,12 +129,15 @@ function executeDownloadPDF() {
             headerDiv.appendChild(addressDiv);
         }
         
-        // Clone the preview content
+        // Clone the preview content with all styles
         const clonedContent = element.cloneNode(true);
         clonedContent.style.margin = '0';
         clonedContent.style.padding = '0';
         clonedContent.style.maxHeight = 'none';
         clonedContent.style.overflow = 'visible';
+        clonedContent.style.display = 'block';
+        clonedContent.style.visibility = 'visible';
+        clonedContent.style.width = '100%';
         
         wrapper.appendChild(headerDiv);
         wrapper.appendChild(clonedContent);
@@ -114,61 +147,68 @@ function executeDownloadPDF() {
         wrapperCreated = true;
     }
     
-    // Temporarily remove max-height and overflow constraints for PDF generation
-    const originalMaxHeight = element.style.maxHeight;
-    const originalOverflow = element.style.overflow;
-    element.style.maxHeight = 'none';
-    element.style.overflow = 'visible';
-    
-    const opt = {
-        margin: [15, 15, 15, 15],
-        filename: filename,
-        image: { type: 'jpeg', quality: 0.5 },
-        html2canvas: { 
-            scale: 2,
-            useCORS: true,
-            logging: false,
-            letterRendering: true,
-            scrollX: 0,
-            scrollY: 0
-        },
-        jsPDF: { 
-            unit: 'mm', 
-            format: 'a4', 
-            orientation: 'portrait',
-            compress: true
-        },
-        pagebreak: { 
-            mode: ['avoid-all', 'css', 'legacy'],
-            avoid: ['h3', 'p']
-        }
-    };
+    // Wait a bit to ensure content is rendered
+    setTimeout(() => {
+        const opt = {
+            margin: [15, 15, 15, 15],
+            filename: filename,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                letterRendering: true,
+                scrollX: 0,
+                scrollY: 0,
+                windowWidth: elementToConvert.scrollWidth,
+                windowHeight: elementToConvert.scrollHeight,
+                allowTaint: true,
+                backgroundColor: '#ffffff'
+            },
+            jsPDF: { 
+                unit: 'mm', 
+                format: 'a4', 
+                orientation: 'portrait',
+                compress: true
+            },
+            pagebreak: { 
+                mode: ['avoid-all', 'css', 'legacy'],
+                avoid: ['h3', 'p']
+            }
+        };
 
-    html2pdf()
-        .set(opt)
-        .from(elementToConvert)
-        .save()
-        .then(() => {
-            // Restore original styles
-            element.style.maxHeight = originalMaxHeight;
-            element.style.overflow = originalOverflow;
-            
-            // Remove wrapper if created
-            if (wrapperCreated && elementToConvert.parentNode) {
-                elementToConvert.parentNode.removeChild(elementToConvert);
-            }
-        })
-        .catch((error) => {
-            console.error('PDF generation error:', error);
-            // Restore original styles even on error
-            element.style.maxHeight = originalMaxHeight;
-            element.style.overflow = originalOverflow;
-            
-            // Remove wrapper if created
-            if (wrapperCreated && elementToConvert.parentNode) {
-                elementToConvert.parentNode.removeChild(elementToConvert);
-            }
-        });
+        html2pdf()
+            .set(opt)
+            .from(elementToConvert)
+            .save()
+            .then(() => {
+                // Restore original styles
+                element.style.maxHeight = originalMaxHeight;
+                element.style.overflow = originalOverflow;
+                element.style.display = originalDisplay;
+                element.style.visibility = originalVisibility;
+                
+                // Remove wrapper if created
+                if (wrapperCreated && elementToConvert.parentNode) {
+                    elementToConvert.parentNode.removeChild(elementToConvert);
+                }
+            })
+            .catch((error) => {
+                console.error('PDF generation error:', error);
+                alert('Error generating PDF: ' + error.message);
+                
+                // Restore original styles even on error
+                element.style.maxHeight = originalMaxHeight;
+                element.style.overflow = originalOverflow;
+                element.style.display = originalDisplay;
+                element.style.visibility = originalVisibility;
+                
+                // Remove wrapper if created
+                if (wrapperCreated && elementToConvert.parentNode) {
+                    elementToConvert.parentNode.removeChild(elementToConvert);
+                }
+            });
+    }, 100);
 }
 
 function downloadDOC() {
