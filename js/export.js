@@ -17,7 +17,7 @@ function checkEmptyInputFields() {
     const requiredFields = [
         'date', 'ownersName', 'ownersAdress', 'vesselName', 'shipper',
         'consignee', 'loadPort', 'dischargePort', 'cargoQuantity', 'cargoName', 'billOfLadingNumbers', 'billOfLadingDate', 'billOfLadingPlace',
-        'requestingParty', 'deliveryParty', 'deliveryPlace', 'companyRequestor',
+        'requestingParty', 'deliveryParty', 'deliveryPartyAddress', 'companyRequestor',
         'companyRequestorAddress', 'representativeName', 'representativePosition'
     ];
     

@@ -43,7 +43,7 @@ const fieldLabels = {
     'billOfLadingPlace': 'Place of Issue',
     'requestingParty': 'Name of Party Requesting Delivery',
     'deliveryParty': 'Name of Party to Whom Delivery is to be Made',
-    'deliveryPlace': 'Place Where Delivery is to be Made',
+    'deliveryPartyAddress': 'Address of Delivery Party',
     'companyRequestor': 'Company Requestor',
     'companyRequestorAddress': 'Address of Company Requestor',
     'representativeName': 'Name and Surname of Company Representative Signing',
